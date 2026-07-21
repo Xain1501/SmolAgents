@@ -1,3 +1,5 @@
+# This code has some issues has to be debugged before running
+
 import os
 import PIL
 from dotenv import load_dotenv
