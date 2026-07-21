@@ -7,6 +7,7 @@ load_dotenv()
 
 # Retrieve HF_TOKEN from the environment variables
 hf_token = os.getenv("HF_TOKEN")
+load_dotenv(os.path.join(os.path.dirname(__file__), '../../.env'))
 
 llm = HuggingFaceInferenceAPI(
     model_name="Qwen/Qwen2.5-Coder-32B-Instruct",
