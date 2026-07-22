@@ -24,8 +24,10 @@ from llama_index.llms.huggingface_api import HuggingFaceInferenceAPI
 # evaluation imports
 from llama_index.core.evaluation import FaithfulnessEvaluator
 
+# observability -langfuse imports
 
-
+from langfuse import get_client
+from openinference.instrumentation.llama_index import LlamaIndexInstrumentor
 
 
 # Load the .env file
@@ -33,6 +35,19 @@ load_dotenv(os.path.join(os.path.dirname(__file__), '../../.env'))
 
 # Retrieve HF_TOKEN from the environment variables
 hf_token = os.getenv("HF_TOKEN")
+
+
+# observability
+langfuse = get_client()
+
+if langfuse.auth_check():
+    print("Langfuse Connected")
+else:
+    print("Langfuse Authentication Failed")
+
+LlamaIndexInstrumentor().instrument()
+
+print("LlamaIndex Instrumentation Enabled")
 
 # trying out the SimpleDirectoryReader to read dummy data
 reader = SimpleDirectoryReader(input_dir=r"C:\DESKTOP STUFF\Programming and Uni Shit here\Programming and Projects\Ai Agent\SmolAgent-HuggingFaceCourse\module2\2.2-LlamaIndex\DummyDirectory")
@@ -98,3 +113,4 @@ print(eval_result.feedback)
 
 #observability
 
+langfuse.flush()
